@@ -21,7 +21,7 @@ public class ReaderActivity extends AppCompatActivity {
     private Button scan_btn;
 
 
-
+//sssss
 
 
 
