@@ -2,6 +2,7 @@ package vision.google.com.matklok_zxingscanner;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -9,38 +10,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-        // Table Name
-        public static final String TABLE_NAME = "Varor";
 
-        // Table columns
-        public static final String _ID = "_id";
-        public static final String Datum = "Utgångsdatum";
-        public static final String DESC = "description";
+    private static final int DB_VERSION = 5;
+    private static final String DB_NAME = "matklok.db";
+    static final String TABLE_NAME = "Ikylen";
+    static final String Col_Name = "name";
+    static final String Col_Expirationdate = "date";
 
-        // Database Information
-        static final String DB_NAME = "VarorDB";
 
-        // database version
-        static final int DB_VERSION = 1;
+    public DatabaseHelper(Context context) {
+        super(context, DB_NAME, null, 1);
+    }
 
-        // Creating table query
-        private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" + _ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + Datum + " TEXT NOT NULL, " + DESC + " TEXT);";
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                " ITEM1 TEXT)";
+        db.execSQL(createTable);
+    }
 
-        public DatabaseHelper(Context context) {
-            super(context, DB_NAME, null, DB_VERSION);
-        }
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP IF TABLE EXISTS " + TABLE_NAME);
+        onCreate(db);
+    }
 
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(CREATE_TABLE);
-        }
+    public boolean addData(String item1) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Col_Expirationdate, item1);
 
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-            onCreate(db);
+        long result = db.insert(TABLE_NAME, null, contentValues);
+
+        //if date as inserted incorrectly it will return -1
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
         }
     }
+    public Cursor getListContents(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return data;
+    }
+}
+
+
+
+
 
 

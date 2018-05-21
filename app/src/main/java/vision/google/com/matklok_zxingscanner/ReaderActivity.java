@@ -18,7 +18,11 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class ReaderActivity extends AppCompatActivity {
 
+
+
     private Button scan_btn;
+
+
 
 
 
@@ -30,6 +34,7 @@ public class ReaderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
+
         scan_btn = findViewById(R.id.scan_btn);
         final Activity activity= this;
         scan_btn.setOnClickListener(new View.OnClickListener() {
