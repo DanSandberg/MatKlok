@@ -54,21 +54,24 @@ public class ReaderActivity extends AppCompatActivity {
 
 
         @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
 
-        IntentResult result= IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        IntentResult result= IntentIntegrator.parseActivityResult( requestCode, resultCode, intent);
         if(result !=null){
             if(result.getContents()==null){
                 Toast.makeText(this,"Du avbröt scannern", Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+               // String scanContent = result.getContents();
+                //String scanFormat = result.getFormatName();
+                //formtTxt.setText("FORMAT: " + scanFormat);
+                //contentTxt.setText("CONTENT: " + scanContent);
             }
         }
          else {
 
-            super.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, intent);
         }
      }
 
