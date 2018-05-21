@@ -1,6 +1,7 @@
 package vision.google.com.matklok_zxingscanner;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -58,6 +59,9 @@ public class ReaderActivity extends AppCompatActivity {
 
 
 
+
+
+
         @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
@@ -68,10 +72,11 @@ public class ReaderActivity extends AppCompatActivity {
                 Toast.makeText(this,"Du avbröt scannern", Toast.LENGTH_LONG).show();
             }
             else {
-               // String scanContent = result.getContents();
+                //String scanContent = result.getContents();
                 //String scanFormat = result.getFormatName();
-                //formtTxt.setText("FORMAT: " + scanFormat);
+                //formtTxt.setText("FORMAT: " + scanFormat).show();
                 //contentTxt.setText("CONTENT: " + scanContent);
+
             }
         }
          else {
