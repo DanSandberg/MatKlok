@@ -7,9 +7,13 @@
     tools:context=".dummy.ListActivity">
 
     <ListView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/listView" />
+        android:id="@+id/ListView"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+
+
+
+         />
 
 
 </android.support.constraint.ConstraintLayout>
