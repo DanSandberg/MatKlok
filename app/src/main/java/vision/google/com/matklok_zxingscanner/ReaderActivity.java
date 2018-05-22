@@ -10,12 +10,15 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+
 
 public class ReaderActivity extends AppCompatActivity {
 
@@ -31,10 +34,15 @@ public class ReaderActivity extends AppCompatActivity {
 
 
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
+        //addListenerOnCheckOutButton();
 
         scan_btn = findViewById(R.id.scan_btn);
         final Activity activity= this;
@@ -50,7 +58,19 @@ public class ReaderActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
+
+
+
     }
+
+
+    //public void setScan_btn(View view){
+
+        //setContentView(R.layout.activity_reader);
+
+
+
+    //}
 
 
 
@@ -72,11 +92,8 @@ public class ReaderActivity extends AppCompatActivity {
                 Toast.makeText(this,"Du avbröt scannern", Toast.LENGTH_LONG).show();
             }
             else {
-                //String scanContent = result.getContents();
-                //String scanFormat = result.getFormatName();
-                //formtTxt.setText("FORMAT: " + scanFormat).show();
-                //contentTxt.setText("CONTENT: " + scanContent);
-
+               result.getContents().toString();
+               Toast.makeText(this,"Varan skannad", Toast.LENGTH_LONG).show();
             }
         }
          else {
