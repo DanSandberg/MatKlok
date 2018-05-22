@@ -32,7 +32,7 @@ public class ListActivity extends AppCompatActivity {
         Intent intent = new Intent(ListActivity.this,ListActivity.class);
         startActivity(intent);
 
-        ListView listView = (ListView) findViewById(R.id.ListView);
+        ListView listView = (ListView) findViewById(R.id.list_result);
         myDB = new DatabaseHelper(this);
 
         ArrayList<String> theList = new ArrayList<>();

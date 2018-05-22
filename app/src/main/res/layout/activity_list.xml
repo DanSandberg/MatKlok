@@ -7,12 +7,9 @@
     tools:context=".dummy.ListActivity">
 
     <ListView
-        android:id="@+id/ListView"
+        android:id="@+id/list_result"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-
-
-
          />
 
 

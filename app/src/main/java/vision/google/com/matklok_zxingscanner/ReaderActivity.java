@@ -60,7 +60,7 @@ public class ReaderActivity extends AppCompatActivity {
         myDB = new DatabaseHelper(this);
 
 
-        //mResult = findViewById(R.id.result);
+        mResult = findViewById(R.id.list_result);
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
         editText = (EditText) findViewById(R.id.editText);
