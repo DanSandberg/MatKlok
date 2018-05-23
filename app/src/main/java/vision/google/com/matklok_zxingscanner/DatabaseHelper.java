@@ -49,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.insert(TABLE_NAME, null, contentValues);
 
-        if (result == -1){
+        if(result == -1){
             return false;
         }
         else{

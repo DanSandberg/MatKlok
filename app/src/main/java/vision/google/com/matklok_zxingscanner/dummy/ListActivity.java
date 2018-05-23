@@ -24,13 +24,27 @@ public class ListActivity extends AppCompatActivity {
 
     DatabaseHelper myDB;
 
+    private Button btnHome;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        Intent intent = new Intent(ListActivity.this,ListActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(ListActivity.this,ListActivity.class);
+        //startActivity(intent);
+
+        //Ovanstående kod kraschar appen!!!!!!!
+
+        btnHome = (Button) findViewById(R.id.btnHome);
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         ListView listView = (ListView) findViewById(R.id.list_result);
         myDB = new DatabaseHelper(this);
@@ -48,17 +62,17 @@ public class ListActivity extends AppCompatActivity {
                 listView.setAdapter(listAdapter);
             }
         }
-        configurebtnHome();
+       // configurebtnHome();
     }
-    private void configurebtnHome(){
-        Button btnHome = (Button) findViewById(R.id.btnHome);
-        btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-    }
+    //private void configurebtnHome(){
+     //   Button btnHome = (Button) findViewById(R.id.btnHome);
+      //  btnHome.setOnClickListener(new View.OnClickListener() {
+       //     @Override
+        //    public void onClick(View view) {
+          //      finish();
+         //   }
+       // });
+   // }
 }
 
 

@@ -30,26 +30,12 @@ import com.google.zxing.qrcode.encoder.QRCode;
 public class ReaderActivity extends AppCompatActivity {
 
 
-
     private Button scan_btn;
     private Button btnAdd;
     DatabaseHelper myDB;
     ListView mResult;
     EditText editText;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private Button btnStored;
 
 
     @Override
@@ -66,23 +52,37 @@ public class ReaderActivity extends AppCompatActivity {
         btnAdd = (Button) findViewById(R.id.btnAdd);
         editText = (EditText) findViewById(R.id.editText);
 
+        btnStored = (Button) findViewById(R.id.btnStored);
+
+       btnStored.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+                //onButtonClick();
+
+               Intent listan = new Intent(ReaderActivity.this, vision.google.com.matklok_zxingscanner.dummy.ListActivity.class);
+               startActivity(listan);
+
+            }
+        });
+
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newEntry = editText.getText().toString();
-                if (editText.length() != 0){
+                if (editText.length() != 0) {
                     AddData(newEntry);
 
                     editText.setText("");
-                }else{
-                    Toast.makeText(ReaderActivity.this,"You must input something", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(ReaderActivity.this, "You must input something", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
 
         scan_btn = findViewById(R.id.scan_btn);
-        final Activity activity= this;
+        final Activity activity = this;
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,21 +98,27 @@ public class ReaderActivity extends AppCompatActivity {
 
         });
 
-        configurebtnStored();
-
-
+        // configurebtnStored();
 
 
     }
-    private void configurebtnStored() {
-        Button btnStored = (Button) findViewById(R.id.btnStored);
-        btnStored.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ReaderActivity.this, ListActivity.class));
-            }
-        });
-    }
+
+
+    //public void first(View view) {
+
+        //Intent listan = new Intent(ReaderActivity.this, vision.google.com.matklok_zxingscanner.dummy.ListActivity.class);
+        //startActivity(listan);
+    //}
+
+    //private void configurebtnStored() {
+       // Button btnStored = (Button) findViewById(R.id.btnStored);
+       // btnStored.setOnClickListener(new View.OnClickListener() {
+          //  @Override
+           // public void onClick(View view) {
+            //    startActivity(new Intent(ReaderActivity.this, ListActivity.class));
+           // }
+       // });
+   // }
 
 
     //public void setScan_btn(View view){
