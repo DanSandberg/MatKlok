@@ -48,8 +48,19 @@ public class ListActivity extends AppCompatActivity {
                 listView.setAdapter(listAdapter);
             }
         }
+        configurebtnHome();
+    }
+    private void configurebtnHome(){
+        Button btnHome = (Button) findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }
+
 
 
 

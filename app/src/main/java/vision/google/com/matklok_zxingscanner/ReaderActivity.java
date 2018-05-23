@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 
@@ -97,9 +98,20 @@ public class ReaderActivity extends AppCompatActivity {
 
         });
 
+        configurebtnStored();
 
 
 
+
+    }
+    private void configurebtnStored() {
+        Button btnStored = (Button) findViewById(R.id.btnStored);
+        btnStored.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ReaderActivity.this, ListActivity.class));
+            }
+        });
     }
 
 
