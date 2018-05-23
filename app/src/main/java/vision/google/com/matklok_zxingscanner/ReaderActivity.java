@@ -64,6 +64,7 @@ public class ReaderActivity extends AppCompatActivity {
 
             }
         });
+        //overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {

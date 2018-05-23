@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,11 +14,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 import vision.google.com.matklok_zxingscanner.DatabaseHelper;
 import vision.google.com.matklok_zxingscanner.R;
+
 
 
 public class ListActivity extends AppCompatActivity {
@@ -42,6 +46,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -62,6 +67,8 @@ public class ListActivity extends AppCompatActivity {
                 listView.setAdapter(listAdapter);
             }
         }
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
        // configurebtnHome();
     }
     //private void configurebtnHome(){
