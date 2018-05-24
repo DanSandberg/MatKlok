@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telecom.Call;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,10 +22,12 @@ import java.util.List;
 
 import vision.google.com.matklok_zxingscanner.DatabaseHelper;
 import vision.google.com.matklok_zxingscanner.R;
-
+import vision.google.com.matklok_zxingscanner.ReaderActivity;
 
 
 public class ListActivity extends AppCompatActivity {
+
+    float x1, x2, y1, y2;
 
     DatabaseHelper myDB;
 
@@ -80,6 +83,23 @@ public class ListActivity extends AppCompatActivity {
          //   }
        // });
    // }
+    public boolean onTouchEvent(MotionEvent touchevent){
+        switch (touchevent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchevent.getX();
+                y1 = touchevent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchevent.getX();
+                y2 = touchevent.getY();
+                if(x2< x1){
+                    Intent i = new Intent(ListActivity.this, ReaderActivity.class);
+                    startActivity(i);
+                }
+                break;
+        }
+        return false;
+    }
 }
 
 

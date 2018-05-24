@@ -29,6 +29,8 @@ import com.google.zxing.qrcode.encoder.QRCode;
 
 public class ReaderActivity extends AppCompatActivity {
 
+    float x1, x2, y1, y2;
+
 
     private Button scan_btn;
     private Button btnAdd;
@@ -64,7 +66,7 @@ public class ReaderActivity extends AppCompatActivity {
 
             }
         });
-        //overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
+        overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -189,6 +191,24 @@ public class ReaderActivity extends AppCompatActivity {
 
            // super.onActivityResult(requestCode, resultCode, intent);
         //}
+     }
+
+     public boolean onTouchEvent(MotionEvent touchevent){
+        switch (touchevent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchevent.getX();
+                y1 = touchevent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchevent.getX();
+                y2 = touchevent.getY();
+                if(x1< x2){
+                    Intent i = new Intent(ReaderActivity.this, vision.google.com.matklok_zxingscanner.dummy.ListActivity.class);
+                    startActivity(i);
+                }
+                break;
+        }
+        return false;
      }
 
 }
