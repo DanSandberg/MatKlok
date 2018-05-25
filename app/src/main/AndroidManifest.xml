@@ -12,8 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".dummy.ListActivity" />
-        <activity android:name=".ReaderActivity">
+
+
+
+
+        <activity android:name=".dummy.ListActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity android:name=".ReaderActivity"
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

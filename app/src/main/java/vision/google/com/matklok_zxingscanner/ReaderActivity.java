@@ -33,11 +33,13 @@ public class ReaderActivity extends AppCompatActivity {
 
 
     private Button scan_btn;
-    private Button btnAdd;
+
     DatabaseHelper myDB;
     ListView mResult;
-    EditText editText;
+
     private Button btnStored;
+
+
 
 
     @Override
@@ -51,8 +53,7 @@ public class ReaderActivity extends AppCompatActivity {
 
         mResult = findViewById(R.id.list_result);
 
-        btnAdd = (Button) findViewById(R.id.btnAdd);
-        editText = (EditText) findViewById(R.id.editText);
+
 
         btnStored = (Button) findViewById(R.id.btnStored);
 
@@ -69,19 +70,6 @@ public class ReaderActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
 
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String newEntry = editText.getText().toString();
-                if (editText.length() != 0) {
-                    AddData(newEntry);
-
-                    editText.setText("");
-                } else {
-                    Toast.makeText(ReaderActivity.this, "You must input something", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
 
         scan_btn = findViewById(R.id.scan_btn);
@@ -101,41 +89,22 @@ public class ReaderActivity extends AppCompatActivity {
 
         });
 
-        // configurebtnStored();
+
 
 
     }
 
 
-    //public void first(View view) {
-
-        //Intent listan = new Intent(ReaderActivity.this, vision.google.com.matklok_zxingscanner.dummy.ListActivity.class);
-        //startActivity(listan);
-    //}
-
-    //private void configurebtnStored() {
-       // Button btnStored = (Button) findViewById(R.id.btnStored);
-       // btnStored.setOnClickListener(new View.OnClickListener() {
-          //  @Override
-           // public void onClick(View view) {
-            //    startActivity(new Intent(ReaderActivity.this, ListActivity.class));
-           // }
-       // });
-   // }
-
-
-    //public void setScan_btn(View view){
-
-        //setContentView(R.layout.activity_reader);
 
 
 
-    //}
+
 
     public void AddData(String newEntry){
         boolean insertData = myDB.addData(newEntry);
 
         if (insertData==true){
+
             Toast.makeText(ReaderActivity.this, "Success", Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(ReaderActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
@@ -145,53 +114,33 @@ public class ReaderActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
         @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+
+        IntentResult result= IntentIntegrator.parseActivityResult(  requestCode, resultCode,  intent);
 
 
 
 
+        if(result !=null ){
 
-        //IntentResult result= IntentIntegrator.parseActivityResult(  requestCode, resultCode,  data);
-            super.onActivityResult(requestCode, resultCode, data);
-        //if(result !=null){
-            if(requestCode == 0){
+            String scancontent= result.getContents();
+            //String scanformat = result.getFormatName();
 
-            if (resultCode == RESULT_OK){
-                String contents = data.getStringExtra("SCAN_RESULT");
-               // mResult.setText(contents);
-            }
-            if(resultCode == RESULT_CANCELED){
+            AddData(scancontent);
 
-            }
+
+            //formatTxt.setText("FORMAT: " + scanformat);
+            //contentTxt.setText("CONTENT: "+ scancontent);
+        }else{
+            Toast.makeText(ReaderActivity.this, "Kunde inte läggas till", Toast.LENGTH_LONG).show();
         }
-            //if(result.getContents()==null){
-                //Toast.makeText(this,"Du avbröt scannern", Toast.LENGTH_LONG).show();
-           // }
-            //else {
+        }
 
 
 
-                //Intent intent = new Intent(ReaderActivity.this, ListActivity.class);
-                //startActivity(intent);
-               //result.getContents().toString();
-               //Toast.makeText(this,"Varan skannad", Toast.LENGTH_LONG).show();
-           // }
-       // }
-         //else {
 
-           // super.onActivityResult(requestCode, resultCode, intent);
-        //}
-     }
 
      public boolean onTouchEvent(MotionEvent touchevent){
         switch (touchevent.getAction()){

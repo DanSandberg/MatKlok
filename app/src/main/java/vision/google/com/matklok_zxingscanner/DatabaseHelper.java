@@ -5,10 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.nfc.Tag;
 import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static final String TAG = "DatabaseHelper";
+
+
+
 
 
 
@@ -57,11 +61,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+
+
     public Cursor getListContents(){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME,null);
         return data;
     }
+
+    public Cursor getItemID(String name){
+        SQLiteDatabase db=this.getWritableDatabase();
+        String query = "SELECT"+ COL1 +" FROM "+TABLE_NAME+
+                " WHERE "+ COL2 + " = '"+ name +"'";
+        Cursor data = db.rawQuery(query,null);
+        return data;
+    }
+
+
+    public void deleteItem(int id, String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE "
+                + COL1 + " = '" + id + "'" +
+                " AND " + COL2 + " = '" + name + "'";
+        Log.d(TAG, "deleteName: query: " + query);
+        Log.d(TAG, "deleteName: Deleting " + name + " from database.");
+        db.close();
+
+
+    }
+
+
+
+
 }
 
 

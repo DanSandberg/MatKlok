@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.telecom.Call;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -25,7 +28,7 @@ import vision.google.com.matklok_zxingscanner.R;
 import vision.google.com.matklok_zxingscanner.ReaderActivity;
 
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity  {
 
     float x1, x2, y1, y2;
 
@@ -33,8 +36,18 @@ public class ListActivity extends AppCompatActivity {
 
     private Button btnHome;
 
+
+
+    String selectedName;
+    int selectedID;
+
+    ListView list_result;
+
+
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
@@ -57,22 +70,73 @@ public class ListActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list_result);
         myDB = new DatabaseHelper(this);
 
-        ArrayList<String> theList = new ArrayList<>();
+         ArrayList<String> theList = new ArrayList<>();
         Cursor data = myDB.getListContents();
 
 
-        if (data.getCount() == 0){
-            Toast.makeText(ListActivity.this, "The database was empty", Toast.LENGTH_LONG).show();
-        }else{
-            while (data.moveToNext()){
-                theList.add(data.getString(1));
-                ListAdapter listAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,theList);
-                listView.setAdapter(listAdapter);
-            }
-        }
 
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-       // configurebtnHome();
+
+        if (data.getCount() == 0) {
+            Toast.makeText(ListActivity.this, "The database was empty", Toast.LENGTH_LONG).show();
+        } else {
+            while (data.moveToNext()) {
+
+                theList.add(data.getString(1));
+
+                ListAdapter listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, theList);
+                listView.setAdapter(listAdapter);
+
+
+
+
+
+                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long id) {
+                        String name = adapterView.getItemAtPosition(i).toString();
+
+                        Cursor data = myDB.getItemID(name);
+
+                        int itemID=1;
+                        while (data.moveToNext()){
+                            itemID=data.getInt(0);
+                        }
+
+                        return true;
+                    }
+
+                });
+
+
+                //Intent receivedIntent = getIntent();
+
+                //selectedID = receivedIntent.getIntExtra("ID", -1);
+
+                //selectedName = receivedIntent.getStringExtra("name");
+
+                //list_result = (ListView) findViewById(R.id.list_result);
+                //listView.setLongClickable(true);
+
+
+                    //list_result.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                       // @Override
+                       // public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                         //   myDB.deleteItem(selectedID, selectedName);
+
+
+                          //  Toast.makeText(ListActivity.this, "removed from database", Toast.LENGTH_LONG).show();
+
+                         //   return true;
+                      //  }
+             //   });
+
+            }
+
+
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            // configurebtnHome();
+        }
     }
     //private void configurebtnHome(){
      //   Button btnHome = (Button) findViewById(R.id.btnHome);
