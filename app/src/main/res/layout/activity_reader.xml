@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:background="#f6f7ef "
     tools:context=".ReaderActivity"
     tools:layout_editor_absoluteY="73dp">
 
@@ -23,20 +24,21 @@
 
     <Button
         android:id="@+id/scan_btn"
-        android:layout_width="148dp"
-        android:layout_height="83dp"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="23dp"
         android:layout_marginTop="184dp"
+        android:background="@drawable/roundbutton"
+        android:elevation="0dp"
         android:text="Skanna vara"
+        android:textColor="@color/bttext"
+        android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-
 
 
     <Button
@@ -48,7 +50,6 @@
         android:text="Varor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 
 </android.support.constraint.ConstraintLayout>

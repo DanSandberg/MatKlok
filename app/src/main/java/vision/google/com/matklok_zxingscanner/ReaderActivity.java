@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -25,6 +26,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.google.zxing.qrcode.encoder.QRCode;
 
+import vision.google.com.matklok_zxingscanner.dummy.RecipesActivity;
 
 
 public class ReaderActivity extends AppCompatActivity {
@@ -147,13 +149,15 @@ public class ReaderActivity extends AppCompatActivity {
         switch (touchevent.getAction()){
             case MotionEvent.ACTION_DOWN:
                 x1 = touchevent.getX();
-                y1 = touchevent.getY();
                 break;
             case MotionEvent.ACTION_UP:
                 x2 = touchevent.getX();
-                y2 = touchevent.getY();
-                if(x1< x2){
+                if(x1 < x2){
                     Intent i = new Intent(ReaderActivity.this, vision.google.com.matklok_zxingscanner.dummy.ListActivity.class);
+                    startActivity(i);
+                }
+                if(x2 < x1){
+                    Intent i = new Intent(ReaderActivity.this, vision.google.com.matklok_zxingscanner.dummy.RecipesActivity.class);
                     startActivity(i);
                 }
                 break;
