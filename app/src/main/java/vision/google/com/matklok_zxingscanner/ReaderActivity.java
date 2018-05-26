@@ -101,13 +101,14 @@ public class ReaderActivity extends AppCompatActivity {
 
 
     public void AddData(String newEntry){
+
         boolean insertData = myDB.addData(newEntry);
 
         if (insertData==true){
 
-            Toast.makeText(ReaderActivity.this, "Success", Toast.LENGTH_LONG).show();
+            Toast.makeText(ReaderActivity.this, "Varan tillagd", Toast.LENGTH_LONG).show();
         }else{
-            Toast.makeText(ReaderActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            Toast.makeText(ReaderActivity.this, "Varan kunde inte läggas till", Toast.LENGTH_LONG).show();
         }
     }
 

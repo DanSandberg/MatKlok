@@ -1,13 +1,18 @@
 package vision.google.com.matklok_zxingscanner.dummy;
 
+import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telecom.Call;
+import android.util.SparseBooleanArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -28,7 +33,7 @@ import vision.google.com.matklok_zxingscanner.R;
 import vision.google.com.matklok_zxingscanner.ReaderActivity;
 
 
-public class ListActivity extends AppCompatActivity  {
+public class ListActivity extends AppCompatActivity {
 
     float x1, x2, y1, y2;
 
@@ -37,13 +42,10 @@ public class ListActivity extends AppCompatActivity  {
     private Button btnHome;
 
 
-
     String selectedName;
     int selectedID;
 
     ListView list_result;
-
-
 
 
     @Override
@@ -51,8 +53,16 @@ public class ListActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+
         //Intent intent = new Intent(ListActivity.this,ListActivity.class);
         //startActivity(intent);
+
+
+        Intent receivedIntent = getIntent();
+
+        selectedID = receivedIntent.getIntExtra("ID",-1);
+
+        selectedName = receivedIntent.getStringExtra("name");
 
         //Ovanstående kod kraschar appen!!!!!!!
 
@@ -67,86 +77,99 @@ public class ListActivity extends AppCompatActivity  {
         });
 
 
-        ListView listView = (ListView) findViewById(R.id.list_result);
+        final ListView listView = (ListView) findViewById(R.id.list_result);
         myDB = new DatabaseHelper(this);
 
-         ArrayList<String> theList = new ArrayList<>();
+        final ArrayList<String> theList = new ArrayList<>();
+
+        final ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, theList);
+
         Cursor data = myDB.getListContents();
 
 
-
-
         if (data.getCount() == 0) {
-            Toast.makeText(ListActivity.this, "The database was empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(ListActivity.this, "Inga varor i listan", Toast.LENGTH_LONG).show();
         } else {
             while (data.moveToNext()) {
 
                 theList.add(data.getString(1));
 
-                ListAdapter listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, theList);
-                listView.setAdapter(listAdapter);
+                //Adapter.notifyDataSetChanged();
 
-
-
-
-
-                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long id) {
-                        String name = adapterView.getItemAtPosition(i).toString();
-
-                        Cursor data = myDB.getItemID(name);
-
-                        int itemID=1;
-                        while (data.moveToNext()){
-                            itemID=data.getInt(0);
-                        }
-
-                        return true;
-                    }
-
-                });
-
-
-                //Intent receivedIntent = getIntent();
-
-                //selectedID = receivedIntent.getIntExtra("ID", -1);
-
-                //selectedName = receivedIntent.getStringExtra("name");
-
-                //list_result = (ListView) findViewById(R.id.list_result);
-                //listView.setLongClickable(true);
-
-
-                    //list_result.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                       // @Override
-                       // public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                         //   myDB.deleteItem(selectedID, selectedName);
-
-
-                          //  Toast.makeText(ListActivity.this, "removed from database", Toast.LENGTH_LONG).show();
-
-                         //   return true;
-                      //  }
-             //   });
 
             }
-
-
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            // configurebtnHome();
         }
-    }
+
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                theList.get(position);
+
+               myDB.deleteItem(selectedID,selectedName);
+                 //myDB.deleteItem();
+
+               Toast.makeText( ListActivity.this, "Raderad", Toast.LENGTH_LONG).show();
+
+
+                view = Adapter.getView(position, view, parent);
+
+
+                Adapter.notifyDataSetChanged();
+
+                return true;
+            }
+        });
+
+        listView.setAdapter(Adapter);
+
+
+        //Intent receivedIntent = getIntent();
+
+        //selectedID = receivedIntent.getIntExtra("ID", -1);
+
+        //selectedName = receivedIntent.getStringExtra("name");
+
+        //list_result = (ListView) findViewById(R.id.list_result);
+        //listView.setLongClickable(true);
+
+
+        //list_result.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        // @Override
+        // public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+        //   myDB.deleteItem(selectedID, selectedName);
+
+
+        //  Toast.makeText(ListActivity.this, "removed from database", Toast.LENGTH_LONG).show();
+
+        //   return true;
+        //  }
+        //   });
+
+
+
+
+    // configurebtnHome();
+
     //private void configurebtnHome(){
-     //   Button btnHome = (Button) findViewById(R.id.btnHome);
-      //  btnHome.setOnClickListener(new View.OnClickListener() {
-       //     @Override
-        //    public void onClick(View view) {
-          //      finish();
-         //   }
-       // });
-   // }
+    //   Button btnHome = (Button) findViewById(R.id.btnHome);
+    //  btnHome.setOnClickListener(new View.OnClickListener() {
+    //     @Override
+    //    public void onClick(View view) {
+    //      finish();
+    //   }
+    // });
+    // }
+
+
+    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
+}
+
+
+
     public boolean onTouchEvent(MotionEvent touchevent){
         switch (touchevent.getAction()){
             case MotionEvent.ACTION_DOWN:

@@ -15,7 +15,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-
     public static final String DATABASE_NAME = "mylist.db";
     public static final String TABLE_NAME = "mylist_data";
     public static final String COL1 = "ID";
@@ -78,15 +77,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void deleteItem(int id, String name){
+
+    public boolean deleteItem(int ID, String NAME){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "DELETE FROM " + TABLE_NAME + " WHERE "
-                + COL1 + " = '" + id + "'" +
-                " AND " + COL2 + " = '" + name + "'";
-        Log.d(TAG, "deleteName: query: " + query);
-        Log.d(TAG, "deleteName: Deleting " + name + " from database.");
-        db.close();
+
+        db.delete(TABLE_NAME, COL1 + "='" + ID + "';" + COL2 + "='" + NAME + "';", null);
+
+        //String query = "DELETE FROM " + TABLE_NAME + " WHERE "
+         //       + COL1 + " = '" + id + "'" +
+        //        " AND " + COL2 + " = '" + name + "'";
+
+        //Log.d(TAG, "deleteName: query: " + query);
+        //Log.d(TAG, "deleteName: Deleting " + name + " from database.");
+
+        return false;
+
 
 
     }
@@ -95,6 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 }
+
 
 
 
