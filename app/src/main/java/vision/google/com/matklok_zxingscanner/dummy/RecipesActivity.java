@@ -25,11 +25,13 @@ public class RecipesActivity extends AppCompatActivity {
                 if(x1< x2){
                     Intent i = new Intent(RecipesActivity.this, ReaderActivity.class);
                     startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 }
                 break;
         }
         return false;
     }
+
 }
 
 
