@@ -1,32 +1,21 @@
 package vision.google.com.matklok_zxingscanner.dummy;
 
-import android.content.ClipData;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
-import android.util.SparseBooleanArray;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnLongClickListener;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import vision.google.com.matklok_zxingscanner.DatabaseHelper;
 import vision.google.com.matklok_zxingscanner.R;
@@ -41,11 +30,18 @@ public class ListActivity extends AppCompatActivity {
 
     private Button btnHome;
 
+    long ROW_ID;
+
+
+    private static final String TAG = "ListActivity";
+
 
     String selectedName;
     int selectedID;
 
-    ListView list_result;
+    private ListView list_result;
+
+    private ArrayList<String> theList = new ArrayList<>();
 
 
     @Override
@@ -53,18 +49,20 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        myDB = new DatabaseHelper(this);
 
-        //Intent intent = new Intent(ListActivity.this,ListActivity.class);
-        //startActivity(intent);
+        populateListView();
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
 
-        Intent receivedIntent = getIntent();
+        //Intent receivedIntent = getIntent();
 
-        selectedID = receivedIntent.getIntExtra("ID",-1);
+        //selectedID = receivedIntent.getIntExtra("_id",-1);
 
-        selectedName = receivedIntent.getStringExtra("name");
+        //selectedName = receivedIntent.getStringExtra("name");
 
-        //Ovanstående kod kraschar appen!!!!!!!
+
 
         btnHome = (Button) findViewById(R.id.btnHome);
 
@@ -77,96 +75,95 @@ public class ListActivity extends AppCompatActivity {
         });
 
 
-        final ListView listView = (ListView) findViewById(R.id.list_result);
-        myDB = new DatabaseHelper(this);
 
-        final ArrayList<String> theList = new ArrayList<>();
+    }
 
-        final ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, theList);
+    private void populateListView() {
+        //Log.d(TAG, "populateListView: Displaying data in the ListView.");
 
-        Cursor data = myDB.getListContents();
+        //get the data and append to a list
+        final Cursor data = myDB.getData();
 
 
         if (data.getCount() == 0) {
             Toast.makeText(ListActivity.this, "Inga varor i listan", Toast.LENGTH_LONG).show();
         } else {
             while (data.moveToNext()) {
-
+                //get the value from the database in column 1
+                //then add it to the ArrayList
                 theList.add(data.getString(1));
-
-                //Adapter.notifyDataSetChanged();
-
-
             }
+
+
+            final ListView listView = (ListView) findViewById(R.id.list_result);
+
+
+            //final ArrayList<String> theList = new ArrayList<>();
+
+            final ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, theList);
+
+            listView.setAdapter(Adapter);
+
+            //Cursor data = myDB.getData();
+
+
+            //if (data.getCount() == 0) {
+            //   Toast.makeText(ListActivity.this, "Inga varor i listan", Toast.LENGTH_LONG).show();
+            //} else {
+            //    while (data.moveToNext()) {
+
+            //       theList.add(data.getString(1));
+
+            //       Adapter.notifyDataSetChanged();
+
+
+            //    }
+
+            //}
+
+
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long I) {
+
+
+                    String ITEM1 = parent.getItemAtPosition(position).toString();
+                    Log.d(TAG, "onItemClick: You Clicked on " + ITEM1);
+
+                    Cursor data = myDB.getItemID(ITEM1); //get the id associated with that name
+                    int itemID = -1;
+                    while (data.moveToNext()) {
+                        itemID = data.getInt(0);
+                    }
+                    if (itemID > -1) {
+                        Log.d(TAG, "onItemClick: The ID is: " + itemID);
+
+                        //myDB.deleteItem(itemID, ITEM1);
+                        myDB.deleterowid(itemID);
+
+                        theList.remove(position);
+
+                        Adapter.notifyDataSetChanged();
+
+                        //myDB.deleteItem(ITEM1);
+                    } else {
+                        Toast.makeText(ListActivity.this, "Hittade inget ID", Toast.LENGTH_LONG).show();
+                    }
+                    return true;
+                }
+
+            });
+
+
+
+
         }
 
+        // });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                theList.get(position);
-
-               myDB.deleteItem(selectedID,selectedName);
-                 //myDB.deleteItem();
-
-               Toast.makeText( ListActivity.this, "Raderad", Toast.LENGTH_LONG).show();
+    }
 
 
-                view = Adapter.getView(position, view, parent);
-
-
-                Adapter.notifyDataSetChanged();
-
-                return true;
-            }
-        });
-
-        listView.setAdapter(Adapter);
-
-
-        //Intent receivedIntent = getIntent();
-
-        //selectedID = receivedIntent.getIntExtra("ID", -1);
-
-        //selectedName = receivedIntent.getStringExtra("name");
-
-        //list_result = (ListView) findViewById(R.id.list_result);
-        //listView.setLongClickable(true);
-
-
-        //list_result.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-        // @Override
-        // public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-        //   myDB.deleteItem(selectedID, selectedName);
-
-
-        //  Toast.makeText(ListActivity.this, "removed from database", Toast.LENGTH_LONG).show();
-
-        //   return true;
-        //  }
-        //   });
-
-
-
-
-    // configurebtnHome();
-
-    //private void configurebtnHome(){
-    //   Button btnHome = (Button) findViewById(R.id.btnHome);
-    //  btnHome.setOnClickListener(new View.OnClickListener() {
-    //     @Override
-    //    public void onClick(View view) {
-    //      finish();
-    //   }
-    // });
-    // }
-
-
-    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-
-}
 
 
 
@@ -187,6 +184,8 @@ public class ListActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
 }
 
 

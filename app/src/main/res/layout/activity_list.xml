@@ -4,19 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".dummy.ListActivity"
     android:background="#fffaea"
+    tools:context=".dummy.ListActivity"
     tools:layout_editor_absoluteY="81dp">
-
-    <ListView
-        android:id="@+id/list_result"
-        android:layout_width="544dp"
-        android:layout_height="502dp"
-        android:layout_marginBottom="8dp"
-        android:longClickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnHome"
@@ -27,6 +17,19 @@
         android:text="Tillbaka"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ListView
+        android:id="@+id/list_result"
+        android:layout_width="481dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:longClickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>
