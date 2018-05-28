@@ -112,12 +112,13 @@ public class ReaderActivity extends AppCompatActivity {
         }else{
             Toast.makeText(ReaderActivity.this, "Varan kunde inte läggas till", Toast.LENGTH_LONG).show();
         }
+
     }
 
 
 
 
-        @Override
+    @Override
      protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
 
@@ -139,6 +140,7 @@ public class ReaderActivity extends AppCompatActivity {
         }else{
             Toast.makeText(ReaderActivity.this, "Kunde inte läggas till", Toast.LENGTH_LONG).show();
         }
+
         }
 
 

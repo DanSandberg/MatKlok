@@ -98,28 +98,12 @@ public class ListActivity extends AppCompatActivity {
             final ListView listView = (ListView) findViewById(R.id.list_result);
 
 
-            //final ArrayList<String> theList = new ArrayList<>();
+
 
             final ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, theList);
 
             listView.setAdapter(Adapter);
 
-            //Cursor data = myDB.getData();
-
-
-            //if (data.getCount() == 0) {
-            //   Toast.makeText(ListActivity.this, "Inga varor i listan", Toast.LENGTH_LONG).show();
-            //} else {
-            //    while (data.moveToNext()) {
-
-            //       theList.add(data.getString(1));
-
-            //       Adapter.notifyDataSetChanged();
-
-
-            //    }
-
-            //}
 
 
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -136,16 +120,21 @@ public class ListActivity extends AppCompatActivity {
                         itemID = data.getInt(0);
                     }
                     if (itemID > -1) {
+
                         Log.d(TAG, "onItemClick: The ID is: " + itemID);
 
-                        //myDB.deleteItem(itemID, ITEM1);
+
                         myDB.deleterowid(itemID);
+
 
                         theList.remove(position);
 
+                        Toast.makeText(ListActivity.this, "Varan borttagen", Toast.LENGTH_LONG).show();
+
                         Adapter.notifyDataSetChanged();
 
-                        //myDB.deleteItem(ITEM1);
+
+
                     } else {
                         Toast.makeText(ListActivity.this, "Hittade inget ID", Toast.LENGTH_LONG).show();
                     }
@@ -159,7 +148,7 @@ public class ListActivity extends AppCompatActivity {
 
         }
 
-        // });
+
 
     }
 

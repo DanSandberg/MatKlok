@@ -14,6 +14,8 @@ public class RecipesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
+
+
     }
     public boolean onTouchEvent(MotionEvent touchevent){
         switch (touchevent.getAction()){
