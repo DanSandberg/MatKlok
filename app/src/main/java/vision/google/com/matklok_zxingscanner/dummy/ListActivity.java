@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,11 +13,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Date;
 
 import vision.google.com.matklok_zxingscanner.DatabaseHelper;
 import vision.google.com.matklok_zxingscanner.R;
@@ -41,7 +48,12 @@ public class ListActivity extends AppCompatActivity {
 
     private ListView list_result;
 
+    private TextView TextViewDate;
+
     private ArrayList<String> theList = new ArrayList<>();
+
+
+
 
 
     @Override
@@ -63,16 +75,17 @@ public class ListActivity extends AppCompatActivity {
         //selectedName = receivedIntent.getStringExtra("name");
 
 
+        String date_n = new SimpleDateFormat("dd MMM yyyy",
+                Locale.getDefault()).format(new Date());
 
-        btnHome = (Button) findViewById(R.id.btnHome);
+        TextView date = (TextView) findViewById(R.id.textViewDate);
+        date.setText(date_n);
 
-        btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
+
+
+
+
+
 
 
 
@@ -146,7 +159,9 @@ public class ListActivity extends AppCompatActivity {
 
 
 
+
         }
+
 
 
 

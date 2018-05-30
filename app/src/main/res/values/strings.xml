@@ -5,5 +5,6 @@
     <string name="title_activity_activity_result">ActivityResult</string>
     <string name="title_activity_on_activity_result">onActivityResult</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="maj">Maj</string>
 
 </resources>

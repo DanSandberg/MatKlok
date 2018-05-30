@@ -57,18 +57,7 @@ public class ReaderActivity extends AppCompatActivity {
 
 
 
-        btnStored = (Button) findViewById(R.id.btnStored);
 
-       btnStored.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-                //onButtonClick();
-
-               Intent listan = new Intent(ReaderActivity.this, vision.google.com.matklok_zxingscanner.dummy.ListActivity.class);
-               startActivity(listan);
-
-            }
-        });
         //overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
 
 
