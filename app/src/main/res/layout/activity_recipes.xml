@@ -45,6 +45,7 @@
         android:layout_x="13dp"
         android:layout_y="275dp"
         android:text="Kyckling pasta"
+        android:textSize="18dp"
         tools:layout_editor_absoluteX="74dp"
         tools:layout_editor_absoluteY="284dp" />
 
@@ -55,6 +56,7 @@
         android:layout_x="278dp"
         android:layout_y="276dp"
         android:text="Pasta bolognese"
+        android:textSize="19dp"
         tools:layout_editor_absoluteX="347dp"
         tools:layout_editor_absoluteY="305dp" />
 
@@ -65,6 +67,7 @@
         android:layout_x="555dp"
         android:layout_y="278dp"
         android:text="Pyttipanna"
+        android:textSize="20dp"
         tools:layout_editor_absoluteX="591dp"
         tools:layout_editor_absoluteY="283dp" />
 
