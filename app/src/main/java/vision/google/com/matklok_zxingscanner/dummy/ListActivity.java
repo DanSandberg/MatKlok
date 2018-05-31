@@ -9,6 +9,7 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -80,9 +81,6 @@ public class ListActivity extends AppCompatActivity {
 
         TextView date = (TextView) findViewById(R.id.textViewDate);
         date.setText(date_n);
-
-
-
 
 
 

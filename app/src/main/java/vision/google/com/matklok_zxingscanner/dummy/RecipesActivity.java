@@ -1,9 +1,11 @@
 package vision.google.com.matklok_zxingscanner.dummy;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 
 import vision.google.com.matklok_zxingscanner.R;
 import vision.google.com.matklok_zxingscanner.ReaderActivity;
@@ -17,6 +19,16 @@ public class RecipesActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
+
+
+
     public boolean onTouchEvent(MotionEvent touchevent){
         switch (touchevent.getAction()){
             case MotionEvent.ACTION_DOWN:
