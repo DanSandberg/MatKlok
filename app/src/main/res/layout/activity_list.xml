@@ -8,7 +8,6 @@
     tools:context=".dummy.ListActivity"
     tools:layout_editor_absoluteY="89dp">
 
-
     <ListView
         android:id="@+id/list_result"
         android:layout_width="590dp"
