@@ -36,9 +36,7 @@ public class ListActivity extends AppCompatActivity {
 
     DatabaseHelper myDB;
 
-    private Button btnHome;
 
-    long ROW_ID;
 
 
     private static final String TAG = "ListActivity";
@@ -69,11 +67,6 @@ public class ListActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
 
-        //Intent receivedIntent = getIntent();
-
-        //selectedID = receivedIntent.getIntExtra("_id",-1);
-
-        //selectedName = receivedIntent.getStringExtra("name");
 
 
         String date_n = new SimpleDateFormat("dd MMM yyyy",
@@ -90,9 +83,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void populateListView() {
-        //Log.d(TAG, "populateListView: Displaying data in the ListView.");
 
-        //get the data and append to a list
         final Cursor data = myDB.getData();
 
 
@@ -100,8 +91,7 @@ public class ListActivity extends AppCompatActivity {
             Toast.makeText(ListActivity.this, "Inga varor i listan", Toast.LENGTH_LONG).show();
         } else {
             while (data.moveToNext()) {
-                //get the value from the database in column 1
-                //then add it to the ArrayList
+
                 theList.add(data.getString(1));
             }
 
@@ -125,7 +115,7 @@ public class ListActivity extends AppCompatActivity {
                     String ITEM1 = parent.getItemAtPosition(position).toString();
                     Log.d(TAG, "onItemClick: You Clicked on " + ITEM1);
 
-                    Cursor data = myDB.getItemID(ITEM1); //get the id associated with that name
+                    Cursor data = myDB.getItemID(ITEM1);
                     int itemID = -1;
                     while (data.moveToNext()) {
                         itemID = data.getInt(0);

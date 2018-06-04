@@ -40,7 +40,7 @@ public class ReaderActivity extends AppCompatActivity {
     DatabaseHelper myDB;
     ListView mResult;
 
-    private Button btnStored;
+
 
 
 
@@ -49,7 +49,7 @@ public class ReaderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
-        //addListenerOnCheckOutButton();
+
 
         myDB = new DatabaseHelper(this);
 
@@ -61,7 +61,7 @@ public class ReaderActivity extends AppCompatActivity {
 
 
 
-        //overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
+
 
 
 
@@ -126,13 +126,12 @@ public class ReaderActivity extends AppCompatActivity {
         if(result !=null ){
 
             String scancontent= result.getContents();
-            //String scanformat = result.getFormatName();
+
 
             AddData(scancontent);
 
 
-            //formatTxt.setText("FORMAT: " + scanformat);
-            //contentTxt.setText("CONTENT: "+ scancontent);
+
         }else{
             Toast.makeText(ReaderActivity.this, "Kunde inte läggas till", Toast.LENGTH_LONG).show();
         }

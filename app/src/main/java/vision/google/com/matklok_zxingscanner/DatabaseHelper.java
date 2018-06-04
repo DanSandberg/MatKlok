@@ -66,11 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    //public Cursor getListContents() {
-    //    SQLiteDatabase db = this.getReadableDatabase();
-    //    Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-    //    return data;
-    //}
+
 
     public Cursor getItemID(String ITEM1) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -100,28 +96,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
 
-        //db.delete(TABLE_NAME, ROW_ID + " = '" + id + "';" + COL2 + " = '" + NAME + "';",null);
-
 
         String query = "DELETE FROM " + TABLE_NAME + " WHERE "
                 + ROW_ID + " = '" + id + "'" +
                 " AND " + COL2 + " = '" + Item1 + "'";
 
-        //Log.d(TAG, "deleteName: query: " + query);
-        //Log.d(TAG, "deleteName: Deleting " + name + " from database.");
+
 
 
         db.execSQL(query);
 
-
-        //   db.close();
-
-
-        //public void deleteItem(String _id){
-        //   SQLiteDatabase db = this.getWritableDatabase();
-        //   db.delete(TABLE_NAME, "_id=?", new String[]{""+_id});
-
-        //   db.close();
 
 
     }
